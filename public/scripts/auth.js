@@ -1,14 +1,14 @@
-// add admin cloud function
-const adminForm = document.querySelector(".admin-actions");
-adminForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+// // add admin cloud function
+// const adminForm = document.querySelector(".admin-actions");
+// adminForm.addEventListener("submit", (e) => {
+//     e.preventDefault();
 
-    const adminEmail = document.querySelector("#admin-email").value;
-    const addAdminRole = functions.httpsCallable("addAdminRole");
-    addAdminRole({ email: adminEmail }).then((result) => {
-        console.log(result);
-    });
-});
+//     const adminEmail = document.querySelector("#admin-email").value;
+//     const addAdminRole = functions.httpsCallable("addAdminRole");
+//     addAdminRole({ email: adminEmail }).then((result) => {
+//         console.log(result);
+//     });
+// });
 
 // listen for auth status changes
 auth.onAuthStateChanged((user) => {
@@ -17,16 +17,55 @@ auth.onAuthStateChanged((user) => {
             user.admin = idTokenResult.claims.admin;
             setupUI(user);
         });
-        db.collection("stories").onSnapshot(
-            (snapshot) => {
-                setupStories(snapshot.docs);
-            },
-            (err) => console.log(err.message)
-        );
+        db.collection("projects")
+            .where("owner", "==", user.uid)
+            .onSnapshot(
+                (snapshot) => {
+                    setupPrivateProjects(snapshot.docs);
+                },
+                (err) => {
+                    console.log(err.message);
+                    setupPrivateProjects([]);
+                }
+            );
     } else {
         setupUI();
-        setupStories([]);
     }
+    db.collection("projects")
+        .where("visibility", "==", "public")
+        .onSnapshot(
+            (snapshot) => {
+                setupPublicProjects(snapshot.docs);
+            },
+            (err) => {
+                console.log(err.message);
+                setupPublicProjects([]);
+            }
+        );
+});
+
+// add new project
+const projectForm = document.querySelector("#project-form");
+projectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log();
+    db.collection("projects")
+        .add({
+            name: projectForm.name.value,
+            owner: auth.getUid(),
+            stories: [],
+            members: [],
+            visibility: projectForm.visibility.checked ? "public" : "private",
+            brief: projectForm.brief.value,
+        })
+        .then(() => {
+            const modal = document.querySelector("#modal-new-project");
+            M.Modal.getInstance(modal).close();
+            projectForm.reset();
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
 });
 
 // create new story

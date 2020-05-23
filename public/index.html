@@ -3,6 +3,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
         <!-- Compiled and minified CSS -->
         <link
             rel="stylesheet"
@@ -43,8 +44,8 @@
                         <a
                             href="#"
                             class="grey-text modal-trigger"
-                            data-target="modal-create"
-                            >Create Story</a
+                            data-target="modal-new-project"
+                            >New Project</a
                         >
                     </li>
                     <li class="logged-out" style="display: none;">
@@ -78,8 +79,8 @@
                 <a
                     href="#"
                     class="grey-text modal-trigger"
-                    data-target="modal-create"
-                    >Create Story</a
+                    data-target="modal-new-project"
+                    >New Project</a
                 >
             </li>
             <li class="logged-out" style="display: none;">
@@ -111,8 +112,9 @@
             </li>
         </ul>
 
+        <!-- TODO : move this to separate page with all other admin actions -->
         <!-- ADMIN ACTIONS -->
-        <form
+        <!-- <form
             class="center-align admin-actions admin"
             style="margin: 40px auto; max-width: 300px; display: none;"
         >
@@ -125,7 +127,7 @@
             <button class="btn-small yellow darken-2 z-depth-0">
                 Make admin
             </button>
-        </form>
+        </form> -->
 
         <!-- SIGN UP MODAL -->
         <div id="modal-signup" class="modal">
@@ -182,8 +184,41 @@
             </div>
         </div>
 
+        <!-- NEW PROJECT MODAL -->
+        <div id="modal-new-project" class="modal">
+            <div class="modal-content">
+                <h4>New Project</h4>
+                <br />
+                <form id="project-form">
+                    <div class="input-field">
+                        <input type="text" id="name" required />
+                        <label for="name">Project Name</label>
+                    </div>
+                    <div class="input-field">
+                        <textarea
+                            id="brief"
+                            class="materialize-textarea"
+                            required
+                        ></textarea>
+                        <label for="brief">Brief</label>
+                    </div>
+                    <div class="switch">
+                        <label>
+                            Private
+                            <input type="checkbox" id="visibility" />
+                            <span class="lever"></span>
+                            Public
+                        </label>
+                    </div>
+                    <button class="btn yellow darken-2 z-depth-0">
+                        Create
+                    </button>
+                </form>
+            </div>
+        </div>
+
         <!-- CREATE STORY MODAL -->
-        <div id="modal-create" class="modal">
+        <!-- <div id="modal-create" class="modal">
             <div class="modal-content">
                 <h4>Create Story</h4>
                 <br />
@@ -221,14 +256,60 @@
                     </button>
                 </form>
             </div>
+        </div> -->
+
+        <!-- PRIVATE PROJECT LIST -->
+        <div
+            class="container private-project-container"
+            style="margin-top: 40px; display: none;"
+        >
+            <h4 id="private-project-list-title">My Projects</h4>
+            <div id="private-project-load-progress" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+            <!-- <ul
+                class="collapsible z-depth-0 private-projects"
+                style="border: none;"
+            ></ul> -->
+            <div class="row private-projects"></div>
+        </div>
+
+        <!-- PUBLIC PROJECT LIST -->
+        <div
+            class="container public-project-container"
+            style="margin-top: 40px;"
+        >
+            <h4 id="public-project-list-title">Public Projects</h4>
+            <div id="public-project-load-progress" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+            <ul
+                class="collapsible z-depth-0 public-projects"
+                style="border: none;"
+            ></ul>
         </div>
 
         <!-- STORY LIST -->
-        <div class="container" style="margin-top: 40px;">
+        <!-- <div class="container" style="margin-top: 40px;">
             <ul
                 class="collapsible z-depth-0 stories"
                 style="border: none;"
             ></ul>
+        </div> -->
+
+        <!-- GUIDE MODAL -->
+        <div id="guide-modal" class="modal">
+            <div class="modal-content">
+                <h4>These are Project Cards</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <a
+                    href="#!"
+                    class="modal-close waves-effect waves-green btn-flat"
+                    >Okay</a
+                >
+            </div>
         </div>
 
         <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
@@ -270,6 +351,13 @@
                 };
                 var instances = M.Sidenav.init(elems, options);
             });
+        </script>
+        <script>
+            if (!navigator.onLine) {
+                console.log("OFFLINE");
+                document.body.innerHTML = "<h4>OFFLINE</h4>";
+                window.stop();
+            }
         </script>
     </body>
 </html>
