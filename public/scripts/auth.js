@@ -42,6 +42,17 @@ auth.onAuthStateChanged((user) => {
                 setupPublicProjects([]);
             }
         );
+
+    db.collection("stories")
+        .onSnapshot(
+            (snapshot) => {
+                setupStories(snapshot.docs);
+            },
+            (err) => {
+                console.log(err.message);
+                setupStories([]);
+            }
+        );
 });
 
 // add new project

@@ -1,5 +1,5 @@
 // DOM elements
-// const storyList = document.querySelector(".stories");
+const storyList = document.querySelector(".stories");
 const publicProjectList = document.querySelector(".public-projects");
 const publicProjectContainer = document.querySelector(
     ".public-project-container"
@@ -112,35 +112,37 @@ const setupPrivateProjects = (data) => {
     }
 };
 
-// // setup stories
-// const setupStories = (data) => {
-//     if (data.length) {
-//         let html = "";
-//         data.forEach((doc) => {
-//             const story = doc.data();
-//             var persona = "As a " + story.content.persona + ",<br><br>";
-//             var requirement =
-//                 "I want to " + story.content.requirement + ",<br><br>";
-//             var purpose = "so that I can " + story.content.purpose + ".";
-//             // var user = "@" + story.user;
-//             const li = `
-//         <li>
-//           <div class="collapsible-header grey lighten-4" style="display: flex; justify-content: space-between"> <span>${
-//               story.title
-//           }</span> <span>${story.author}</span> </div>
-//           <div class="collapsible-body white"> ${
-//               persona + requirement + purpose
-//           } </div>
-//         </li>
-//       `;
-//             html += li;
-//         });
-//         storyList.innerHTML = html;
-//     } else {
-//         storyList.innerHTML =
-//             '<h5 class="center-align">Login to view stories</h5>';
-//     }
-// };
+// setup stories
+const setupStories = (data) => {
+    var loader = document.querySelector("#public-story-load-progress");
+    loader.style.display = "none";
+    if (data.length) {
+        let html = "";
+        data.forEach((doc) => {
+            const story = doc.data();
+            var persona = "As a " + story.content.persona + ",<br><br>";
+            var requirement =
+                "I want to " + story.content.requirement + ",<br><br>";
+            var purpose = "so that I can " + story.content.purpose + ".";
+            // var user = "@" + story.user;
+            const li = `
+        <li>
+          <div class="collapsible-header grey lighten-4" style="display: flex; justify-content: space-between"> <span>${
+              story.title
+          }</span> <span>${story.author}</span> </div>
+          <div class="collapsible-body white"> ${
+              persona + requirement + purpose
+          } </div>
+        </li>
+      `;
+            html += li;
+        });
+        storyList.innerHTML = html;
+    } else {
+        storyList.innerHTML =
+            '<h5 class="center-align">Login to view stories</h5>';
+    }
+};
 
 // setup materialize components
 document.addEventListener("DOMContentLoaded", function () {
