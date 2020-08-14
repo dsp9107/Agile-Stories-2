@@ -38,7 +38,7 @@
                         >
                     </li>
                     <li class="logged-in" style="display: none;">
-                        <a href="#" class="grey-text" id="logout">Logout</a>
+                        <a href="#" class="grey-text logout-fx">Logout</a>
                     </li>
                     <li class="admin" style="display: none;">
                         <a
@@ -108,7 +108,7 @@
                 >
             </li>
             <li class="logged-in" style="display: none;">
-                <a href="#" class="grey-text" id="logout">Logout</a>
+                <a href="#" class="grey-text logout-fx">Logout</a>
             </li>
         </ul>
 
@@ -218,11 +218,11 @@
         </div>
 
         <!-- CREATE STORY MODAL -->
-        <div id="modal-create" class="modal">
+        <div id="modal-create-story" class="modal">
             <div class="modal-content">
                 <h4>Create Story</h4>
                 <br />
-                <form id="create-form">
+                <form id="form-create-story">
                     <div class="input-field">
                         <input type="text" id="title" required />
                         <label for="title">Story Title</label>
@@ -260,7 +260,7 @@
 
         <!-- PRIVATE PROJECT LIST -->
         <div
-            class="container private-project-container"
+            class="container private-project-container logged-in"
             style="margin-top: 40px; display: none;"
         >
             <h4 id="private-project-list-title">My Projects</h4>
@@ -276,7 +276,7 @@
 
         <!-- PUBLIC PROJECT LIST -->
         <div
-            class="container public-project-container"
+            class="container public-project-container logged-out"
             style="margin-top: 40px;"
         >
             <h4 id="public-project-list-title">Public Projects</h4>
@@ -289,14 +289,29 @@
             ></ul>
         </div>
 
-        <!-- STORY LIST -->
-        <div class="container" style="margin-top: 40px;">
+        <!-- PUBLIC STORY LIST -->
+        <div class="container logged-out" style="margin-top: 40px;">
             <h4 id="public-story-list-title">Public Stories</h4>
             <div id="public-story-load-progress" class="progress">
                 <div class="indeterminate"></div>
             </div>
             <ul
-                class="collapsible z-depth-0 stories"
+                class="collapsible z-depth-0 public-stories"
+                style="border: none;"
+            ></ul>
+        </div>
+
+        <!-- PRIVATE STORY LIST -->
+        <div
+            class="container logged-in"
+            style="margin-top: 40px; display: none;"
+        >
+            <h4 id="private-story-list-title">My Stories</h4>
+            <div id="private-story-load-progress" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+            <ul
+                class="collapsible z-depth-0 private-stories"
                 style="border: none;"
             ></ul>
         </div>

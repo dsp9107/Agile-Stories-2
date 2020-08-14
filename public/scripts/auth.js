@@ -18,7 +18,7 @@ auth.onAuthStateChanged((user) => {
             setupUI(user);
         });
         db.collection("projects")
-            .where("owner", "==", user.uid)
+            .where("members", "array-contains", user.uid)
             .onSnapshot(
                 (snapshot) => {
                     setupPrivateProjects(snapshot.docs);
@@ -28,6 +28,16 @@ auth.onAuthStateChanged((user) => {
                     setupPrivateProjects([]);
                 }
             );
+
+        // db.collection("stories").onSnapshot(
+        //     (snapshot) => {
+        //         setupPrivateStories(snapshot.docs);
+        //     },
+        //     (err) => {
+        //         console.log(err.message);
+        //         setupPrivateStories([]);
+        //     }
+        // );
     } else {
         setupUI();
     }
@@ -43,16 +53,15 @@ auth.onAuthStateChanged((user) => {
             }
         );
 
-    db.collection("stories")
-        .onSnapshot(
-            (snapshot) => {
-                setupStories(snapshot.docs);
-            },
-            (err) => {
-                console.log(err.message);
-                setupStories([]);
-            }
-        );
+    // db.collection("stories").onSnapshot(
+    //     (snapshot) => {
+    //         setupPublicStories(snapshot.docs);
+    //     },
+    //     (err) => {
+    //         console.log(err.message);
+    //         setupPublicStories([]);
+    //     }
+    // );
 });
 
 // add new project
@@ -65,7 +74,7 @@ projectForm.addEventListener("submit", (e) => {
             name: projectForm.name.value,
             owner: auth.getUid(),
             stories: [],
-            members: [],
+            members: [auth.getUid()],
             visibility: projectForm.visibility.checked ? "public" : "private",
             brief: projectForm.brief.value,
         })
@@ -80,34 +89,37 @@ projectForm.addEventListener("submit", (e) => {
 });
 
 // create new story
-const createForm = document.querySelector("#create-form");
-createForm.addEventListener("submit", (e) => {
+const formCreateStory = document.querySelector("#form-create-story");
+formCreateStory.addEventListener("submit", (e) => {
     e.preventDefault();
-    var userN = auth.getUid();
+    const userN = auth.getUid();
     db.collection("users")
         .doc(userN)
         .get()
-        .then(
-            (doc) => {
-                userN = doc.data().username;
-            },
-            (err) => console.log(err.message)
-        );
-    db.collection("stories")
-        .add({
-            title: createForm.title.value,
-            content: {
-                persona: createForm.persona.value,
-                purpose: createForm.purpose.value,
-                requirement: createForm.requirement.value,
-            },
-            author: userN,
+        .then((doc) => {
+            return doc.data().username;
         })
-        .then(() => {
+        .then((username) => {
+            return db.collection("stories").add({
+                title: formCreateStory.title.value,
+                content: {
+                    persona: formCreateStory.persona.value,
+                    purpose: formCreateStory.purpose.value,
+                    requirement: formCreateStory.requirement.value,
+                },
+                author: username,
+            });
+        })
+        .then((ref) => {
+            db.collection("projects")
+                .doc(window.lastAnchorClicked.dataset.project)
+                .update({
+                    stories: firebase.firestore.FieldValue.arrayUnion(ref.id),
+                });
             // close the create modal & reset form
-            const modal = document.querySelector("#modal-create");
+            const modal = document.querySelector("#modal-create-story");
             M.Modal.getInstance(modal).close();
-            createForm.reset();
+            formCreateStory.reset();
         })
         .catch((err) => {
             console.log(err.message);
@@ -143,10 +155,12 @@ signupForm.addEventListener("submit", (e) => {
 });
 
 // logout
-const logout = document.querySelector("#logout");
-logout.addEventListener("click", (e) => {
-    e.preventDefault();
-    auth.signOut();
+const logoutTriggers = document.querySelectorAll(".logout-fx");
+logoutTriggers.forEach((logoutTrigger) => {
+    logoutTrigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        auth.signOut();
+    });
 });
 
 // login
