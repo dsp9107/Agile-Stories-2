@@ -15,35 +15,38 @@
         />
         <title>Agile Stories</title>
     </head>
-    <body class="grey lighten-3">
+    <body class="blue-grey lighten-5">
         <!-- NAVBAR -->
-        <nav class="z-depth-0 grey lighten-4">
+        <nav class="blue-grey darken-4">
             <div class="nav-wrapper container">
-                <a href="#" class="brand-logo">
-                    <img
-                        src="img/logo.png"
-                        style="width: 180px; margin-top: 10px;"
-                    />
+                <a href="#" class="brand-logo blue-grey-text text-lighten-5">
+                    Agile Stories
                 </a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-                    ><i class="material-icons" style="color: black;">menu</i></a
+                    ><i class="material-icons blue-grey-text text-lighten-4"
+                        >menu</i
+                    ></a
                 >
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li class="logged-in" style="display: none;">
                         <a
                             href="#"
-                            class="grey-text modal-trigger"
+                            class="blue-grey-text text-lighten-5 modal-trigger"
                             data-target="modal-account"
                             >Account</a
                         >
                     </li>
                     <li class="logged-in" style="display: none;">
-                        <a href="#" class="grey-text logout-fx">Logout</a>
+                        <a
+                            href="#"
+                            class="blue-grey-text text-lighten-5 logout-fx"
+                            >Logout</a
+                        >
                     </li>
                     <li class="admin" style="display: none;">
                         <a
                             href="#"
-                            class="grey-text modal-trigger"
+                            class="blue-grey-text text-lighten-5 modal-trigger"
                             data-target="modal-new-project"
                             >New Project</a
                         >
@@ -51,7 +54,7 @@
                     <li class="logged-out" style="display: none;">
                         <a
                             href="#"
-                            class="grey-text modal-trigger"
+                            class="blue-grey-text text-lighten-5 modal-trigger"
                             data-target="modal-login"
                             >Login</a
                         >
@@ -59,7 +62,7 @@
                     <li class="logged-out" style="display: none;">
                         <a
                             href="#"
-                            class="grey-text modal-trigger"
+                            class="blue-grey-text text-lighten-5 modal-trigger"
                             data-target="modal-signup"
                             >Sign up</a
                         >
@@ -68,17 +71,21 @@
             </div>
         </nav>
 
-        <ul class="sidenav" id="mobile-demo">
+        <!-- SIDENAV -->
+        <ul class="sidenav blue-grey darken-3" id="mobile-demo">
             <li>
-                <div style="margin-top: 8px; margin-left: 8px;">
-                    <a href="#"> <img src="img/logo.png" /></a>
+                <div style="margin-top: 8px; margin-left: 8px; padding: 0 8px;">
+                    <!-- <a href="#"> <img src="img/logo.png" /></a> -->
+                    <span class="blue-grey-text text-lighten-4">
+                        <strong>Agile Stories</strong>
+                    </span>
                 </div>
             </li>
-            <li><div class="divider"></div></li>
+            <li><div class="divider blue-grey darken-2"></div></li>
             <li class="admin" style="display: none;">
                 <a
                     href="#"
-                    class="grey-text modal-trigger"
+                    class="blue-grey-text text-lighten-4 modal-trigger"
                     data-target="modal-new-project"
                     >New Project</a
                 >
@@ -86,7 +93,7 @@
             <li class="logged-out" style="display: none;">
                 <a
                     href="#"
-                    class="grey-text modal-trigger"
+                    class="blue-grey-text text-lighten-4 modal-trigger"
                     data-target="modal-login"
                     >Login</a
                 >
@@ -94,7 +101,7 @@
             <li class="logged-out" style="display: none;">
                 <a
                     href="#"
-                    class="grey-text modal-trigger"
+                    class="blue-grey-text text-lighten-4 modal-trigger"
                     data-target="modal-signup"
                     >Sign up</a
                 >
@@ -102,13 +109,15 @@
             <li class="logged-in" style="display: none;">
                 <a
                     href="#"
-                    class="grey-text modal-trigger"
+                    class="blue-grey-text text-lighten-4 modal-trigger"
                     data-target="modal-account"
                     >Account</a
                 >
             </li>
             <li class="logged-in" style="display: none;">
-                <a href="#" class="grey-text logout-fx">Logout</a>
+                <a href="#" class="blue-grey-text text-lighten-4 logout-fx"
+                    >Logout</a
+                >
             </li>
         </ul>
 
@@ -147,7 +156,7 @@
                         <input type="text" id="signup-bio" required />
                         <label for="signup-bio">One Line Bio</label>
                     </div>
-                    <button class="btn yellow darken-2 z-depth-0">
+                    <button class="btn blue-grey darken-3 z-depth-0">
                         Sign up
                     </button>
                     <p class="error pink-text center-align"></p>
@@ -169,7 +178,9 @@
                         <input type="password" id="login-password" required />
                         <label for="login-password">Your password</label>
                     </div>
-                    <button class="btn yellow darken-2 z-depth-0">Login</button>
+                    <button class="btn blue-grey darken-3 z-depth-0">
+                        Login
+                    </button>
                     <p class="error pink-text center-align"></p>
                 </form>
             </div>
@@ -210,7 +221,8 @@
                             Public
                         </label>
                     </div>
-                    <button class="btn yellow darken-2 z-depth-0">
+                    <br />
+                    <button class="btn blue-grey darken-3 z-depth-0">
                         Create
                     </button>
                 </form>
@@ -251,7 +263,7 @@
                         ></textarea>
                         <label for="purpose">so that I can</label>
                     </div>
-                    <button class="btn yellow darken-2 z-depth-0">
+                    <button class="btn blue-grey darken-3 z-depth-0">
                         Create
                     </button>
                 </form>
@@ -283,10 +295,7 @@
             <div id="public-project-load-progress" class="progress">
                 <div class="indeterminate"></div>
             </div>
-            <ul
-                class="collapsible z-depth-0 public-projects"
-                style="border: none;"
-            ></ul>
+            <div class="row public-projects"></div>
         </div>
 
         <!-- PUBLIC STORY LIST -->
@@ -295,10 +304,14 @@
             <div id="public-story-load-progress" class="progress">
                 <div class="indeterminate"></div>
             </div>
-            <ul
-                class="collapsible z-depth-0 public-stories"
-                style="border: none;"
-            ></ul>
+            <div class="row">
+                <div class="col s12">
+                    <ul
+                        class="collapsible z-depth-0 public-stories"
+                        style="border: none;"
+                    ></ul>
+                </div>
+            </div>
         </div>
 
         <!-- PRIVATE STORY LIST -->

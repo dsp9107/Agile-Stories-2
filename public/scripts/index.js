@@ -53,24 +53,23 @@ const generateProjectDisplay = (display, data) => {
     var proj = "<span>ERROR</span>";
     if (display == "card") {
         proj = `<div class="col s12 m6">
-        <div class="card blue-grey darken-1">
+        <div class="card blue-grey darken-3">
             <div class="card-content white-text">
                 <span class="card-title">${data.project.name}</span>
                 <p>${data.project.brief}</p>
             </div>
             <div class="card-action">
-                <a href="#modal-create-story" class="modal-trigger" data-project=${
-                    data.id
-                } onclick="window.lastAnchorClicked = this;">New Story</a>
                 ${
-                    /*<a onclick="M.toast({html: 'I am a toast'})" style="cursor:pointer;">Toast</a>*/ ""
+                    data.project.visibility === "private"
+                        ? `<a href="#modal-create-story" class="modal-trigger amber-text text-accent-2" data-project=${data.id} onclick="window.lastAnchorClicked = this;">New Story</a>`
+                        : `<a class="amber-text text-accent-2" data-project=${data.id} onclick="M.toast({html: 'contact @dsp9107'})" style="cursor:pointer;">New Story</a>`
                 }
             </div>
         </div>
     </div>`;
     } else if (display == "collapsible") {
         proj = `<li>
-      <div class="collapsible-header grey lighten-4" style="display: flex; justify-content: space-between"> <span>${data.project.name}</span> <span>${data.project.visibility}</span> </div>
+      <div class="collapsible-header blue-grey darken-3 blue-grey-text text-lighten-5" style="display: flex; justify-content: space-between"> <span>${data.project.name}</span> <span class="amber-text text-accent-2">${data.project.visibility}</span> </div>
       <div class="collapsible-body white"> ${data.project.brief} </div>
     </li>`;
     }
@@ -88,8 +87,8 @@ const setupPublicProjects = (data) => {
         let html = "";
         data.forEach((doc) => {
             const project = doc.data();
-            const li = generateProjectDisplay("collapsible", { project });
-            html += li;
+            const view = generateProjectDisplay("card", { project });
+            html += view;
             stories.push(project.stories);
         });
         publicProjectList.innerHTML = html;
@@ -165,9 +164,11 @@ const setupPublicStories = (data) => {
             // var user = "@" + story.user;
             const li = `
         <li>
-          <div class="collapsible-header grey lighten-4" style="display: flex; justify-content: space-between"> <span>${
+          <div class="collapsible-header blue-grey darken-3 blue-grey-text text-lighten-5" style="display: flex; justify-content: space-between"> <span>${
               story.title
-          }</span> <span>${story.author}</span> </div>
+          }</span> <span class="amber-text text-accent-2">${
+                story.author
+            }</span> </div>
           <div class="collapsible-body white"> ${
               persona + requirement + purpose
           } </div>
@@ -197,9 +198,11 @@ const setupPrivateStories = (data) => {
             // var user = "@" + story.user;
             const li = `
         <li>
-          <div class="collapsible-header grey lighten-4" style="display: flex; justify-content: space-between"> <span>${
+          <div class="collapsible-header blue-grey darken-3 blue-grey-text text-lighten-5" style="display: flex; justify-content: space-between"> <span>${
               story.title
-          }</span> <span>${story.author}</span> </div>
+          }</span> <span class="amber-text text-accent-2">${
+                story.author
+            }</span> </div>
           <div class="collapsible-body white"> ${
               persona + requirement + purpose
           } </div>
